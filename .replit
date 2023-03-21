@@ -1,4 +1,4 @@
-run = "flask --app app run"
+run = "python app.py"
 
 [nix]
 channel = "stable-22_11"

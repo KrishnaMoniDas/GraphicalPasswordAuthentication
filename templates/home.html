@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>      
       <title>Graphical Password Authentication Test</title>
-  </head>
+</head>
 
-  <body>
-      <h1>This is the demonstration of GPA v1.O</h1>
-  </body>
+<body>
+      <h1>GPA v1.O Demonstration (Under Development)</h1>
+
+  <div>
+      <img src="https://gpa-1.purplecomrad.repl.co/static/banner.jpg" height='540px' width='640px'>
+    </div>
+  
+    <div>
+      <button id='login'><a href="/login">Login</a></button>
+      <br>
+      <button id='signup'><a>SignUp</a></button>
+    </div>
+  
+  <div><h2>About This project</h2></div>
+  
+  <div>
+    <h4>Project Name: Graphical Password Authentication</h4>
+   </div> 
+<div>
+      <h4>Members:</h4>
+    {% for member in members %}
+    <div>
+     <h4><b>{{member['name']}}</b></h4>
+    </div>
+    {% endfor %}
+    
+</div>
+  
+  <div>
+    <footer>Website developed by {{Website_dev}}</footer>
+  </div>
+</body> 
 </html>
