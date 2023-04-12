@@ -1,73 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Image Grid</title>
-	<style>
-		img {
-			width: 100px;
-			height: 100px;
-			margin: 5px;
-			border: 1px solid black;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <body>
-	<div id="grid"></div>
-	<br>
-	<label for="textfield">Selected Image ID:</label>
-	<input type="text" id="textfield" disabled>
-	<script>
-		// Define a click counter
-		var clickCount = 0;
-		
-		// Define an array of image URLs
-		var imageUrls = [
-			"https://via.placeholder.com/100x100.png?text=1",
-			"https://via.placeholder.com/100x100.png?text=2",
-			"https://via.placeholder.com/100x100.png?text=3",
-			"https://via.placeholder.com/100x100.png?text=4",
-			"https://via.placeholder.com/100x100.png?text=5",
-			"https://via.placeholder.com/100x100.png?text=6",
-			"https://via.placeholder.com/100x100.png?text=7",
-			"https://via.placeholder.com/100x100.png?text=8",
-			"https://via.placeholder.com/100x100.png?text=9",
-			"https://via.placeholder.com/100x100.png?text=10",
-			"https://via.placeholder.com/100x100.png?text=11",
-			"https://via.placeholder.com/100x100.png?text=12",
-			"https://via.placeholder.com/100x100.png?text=13",
-			"https://via.placeholder.com/100x100.png?text=14",
-			"https://via.placeholder.com/100x100.png?text=15",
-			"https://via.placeholder.com/100x100.png?text=16",
-			"https://via.placeholder.com/100x100.png?text=17",
-			"https://via.placeholder.com/100x100.png?text=18",
-			"https://via.placeholder.com/100x100.png?text=19",
-			"https://via.placeholder.com/100x100.png?text=20",
-			"https://via.placeholder.com/100x100.png?text=21",
-			"https://via.placeholder.com/100x100.png?text=22",
-			"https://via.placeholder.com/100x100.png?text=23",
-			"https://via.placeholder.com/100x100.png?text=24",
-			"https://via.placeholder.com/100x100.png?text=25",
-		];
-		
-		// Shuffle the image URLs
-		imageUrls.sort(() => Math.random() - 0.5);
-		
-		// Create a grid of images with self-assigned IDs
-		var grid = document.getElementById("grid");
-		for (var i = 0; i < 25; i++) {
-			var img = document.createElement("img");
-			img.src = imageUrls[i];
-			img.id = i + 1;
-			img.addEventListener("click", function() {
-				if (clickCount < 8) {
-					document.getElementById("textfield").value = this.id;
-					clickCount++;
-				}
-			});
-			grid.appendChild(img);
-		}
-        //javascript program to make a 5x5 image grid where every image has a self-assigned id and upon clicking an 
-        //image from the grid a textfield is filled with the self-assigned id and there is a click limit of 8
-	</script>
+    <div class="input section">
+        <label for="textfield">Selected Image ID's (for debugging) :</label>
+	    <input type="text" id="textfield" disabled>
+    </div>
+
+    <div id="grid">
+        <!-- grid will be generated here -->
+    </div>
+
+    <script>
+// script is added here for image grid generation and other important functionality
+
+// In this javascript script we are making a function to generate clickable
+// image grid with thier respective id's which will be used to track the
+// users choices of images(by thier clicking) in order, then we encrypt the end result
+// string to store in the database to later verify a user log-in using the user-id
+// and the string of encrypted password associated with it
+// Author: Krishna Moni Das
+
+function image (link,id){ //function to create images as object with properties link and id
+    this.link = link;
+    this.id = id;
+} 
+
+// creation of image object with two properties - link and id
+// thier properties are immutable to maintain security and robustness 
+
+const image0 = new image("https://cdn-icons-png.flaticon.com/128/1559/1559618.png",5); 
+const image1 = new image("https://cdn-icons-png.flaticon.com/128/3477/3477145.png",4); 
+const image2 = new image("https://cdn-icons-png.flaticon.com/128/3477/3477085.png",34);
+const image3 = new image("https://cdn-icons-png.flaticon.com/128/10158/10158370.png",7);
+const image4 = new image("https://cdn-icons-png.flaticon.com/128/3020/3020048.png",45);
+const image5 = new image("https://cdn-icons-png.flaticon.com/128/3477/3477085.png",23);
+const image6 = new image("https://cdn-icons-png.flaticon.com/128/3477/3477109.png",56);
+const image7 = new image("https://cdn-icons-png.flaticon.com/128/4574/4574146.png",45);
+const image8 = new image("https://cdn-icons-png.flaticon.com/128/10075/10075734.png",68);
+const image9 = new image("https://cdn-icons-png.flaticon.com/128/4589/4589558.png",98);
+const image10 = new image("https://cdn-icons-png.flaticon.com/128/4589/4589626.png",90);
+
+// images can be added manaully by the developer along with their properties
+
+var clicks = 0; // to keep track of the amount of times the user has clicked in order to select the images
+const clickAllowed = 8; // how many selection the user can trigger
+
+var finalString = "";
+
+var images = [image0,image1,image2,image3,image4,image5,image6,image7,image8,image9,image10];
+
+images.sort(()=>Math.random() - 0.8); // shuffling the images everytime the user visits the websites
+
+var imageGrid = document.getElementById("grid");
+document.getElementById("textfield").value = null;
+
+for(var i=0;i<images.length;i++){
+    var img = document.createElement("img");
+    img.src = images[i].link;
+    img.id = images[i].id;
+    img.addEventListener("click",function(){
+        if(clicks < clickAllowed){
+            document.getElementById("textfield").value += this.id + "";
+            finalString = finalString.concat(this.id);
+            clicks++;
+        }
+    });
+    imageGrid.appendChild(img);
+    
+}
+//console.log(finalString);
+
+// Algorithm Implimentation,
+
+
+
+</script>
+
+
+    
 </body>
 </html>
