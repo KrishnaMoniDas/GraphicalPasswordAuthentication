@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "gpa"
+version = "0.1.0"
+description = "Graphical Icon Based Password System"
+authors = ["KrishnaMoniDas"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Flask = "^2.2.3"
+SQLAlchemy = "^2.0.9"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

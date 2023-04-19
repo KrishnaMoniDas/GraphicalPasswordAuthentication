@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from database import load_users_from_db
 
 app = Flask(__name__)
 
@@ -23,7 +24,8 @@ MEMBERS = [
 
 @app.route("/")
 def hello_world():
-    return render_template('home.html',Website_dev='Krishna Moni Das',members=MEMBERS)
+  users = load_users_from_db()
+  return render_template('home.html', Website_dev='Krishna Moni Das', users=users, members=MEMBERS)
 
 @app.route("/login")
 def login_page():
